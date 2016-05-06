@@ -134,7 +134,7 @@ public class ServletControle extends HttpServlet {
 		String msg = "";
 		EmpresaDAO empresaDAO = new EmpresaDAO();
 		try {
-			empresaDAO.exclui(cnpj);
+			empresaDAO.excluir(cnpj);
 			msg = "excluido com sucesso";
 		} catch (Exception e) {
 			msg = e.getMessage();

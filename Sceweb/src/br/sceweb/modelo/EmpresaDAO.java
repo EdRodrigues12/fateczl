@@ -2,9 +2,10 @@ package br.sceweb.modelo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.sceweb.servico.FabricadeConexoes;
+import br.sceweb.servico.FabricaDeConexoes;
 
 public class EmpresaDAO {
 	
@@ -13,7 +14,7 @@ public class EmpresaDAO {
 		int codigoRetorno = 0;
 		
 		
-		try(Connection conn = new FabricadeConexoes().getConnection()){
+		try(Connection conn = new FabricaDeConexoes().getConnection()){
 			ps = conn.prepareStatement("insert into empresa(cnpj, nomeEmpresa, nomeFantasia, endereco, "
 					+ "telefone)values (?,?,?,?,?)");
 			ps.setString(1, empresa.getCnpj());
@@ -36,7 +37,7 @@ public class EmpresaDAO {
 		int codigoRetorno = 0;
 		
 		
-		try(Connection conn = new FabricadeConexoes().getConnection()){
+		try(Connection conn = new FabricaDeConexoes().getConnection()){
 			ps = conn.prepareStatement("delete from empresa where cnpj = ?");
 			ps.setString(1, cnpj);
 			codigoRetorno = ps.executeUpdate();
@@ -50,6 +51,31 @@ public class EmpresaDAO {
 		
 		
 		
+	}
+	
+	public Empresa consultaEmpresa(String cnpj) {
+		Empresa empresa = null;
+		java.sql.PreparedStatement ps;
+		try (Connection conn = new FabricaDeConexoes().getConnection()) {
+			ps = conn.prepareStatement("select * from empresa where cnpj = ?");
+			ps.setString(1, cnpj);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				empresa = new Empresa();
+				empresa.setCnpj(resultSet.getString("cnpj"));
+				empresa.setNomeEmpresa(resultSet.getString("nomeEmpresa"));
+				empresa.setNomeFantasia(resultSet.getString("nomeFantasia"));
+				empresa.setEndereco(resultSet.getString("endereco"));
+				empresa.setTelefone(resultSet.getString("telefone"));
+				
+			}
+			resultSet.close();
+			ps.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return empresa;
 	}
 
 }

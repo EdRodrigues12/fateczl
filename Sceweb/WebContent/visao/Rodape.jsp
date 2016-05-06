@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Rodapé</title>
-<link rel="stylesheet" type="text/css" href="/sceweb-v1/CSS/formato.css">
+<link rel="stylesheet" type="text/css" href="/Sceweb/CSS/formato.css">
 </head>
 <body>
 	<div id="rodape">

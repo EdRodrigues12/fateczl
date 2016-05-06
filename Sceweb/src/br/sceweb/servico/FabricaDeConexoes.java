@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 
 
 
-public class FabricadeConexoes {
-	Logger logger = Logger.getLogger(FabricadeConexoes.class);
+public class FabricaDeConexoes {
+	Logger logger = Logger.getLogger(FabricaDeConexoes.class);
 	public Connection getConnection(){
 		String url = "jdbc:mysql://localhost/sceweb";
 		

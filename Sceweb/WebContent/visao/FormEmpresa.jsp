@@ -10,7 +10,7 @@
             }
 </style>
 <title>Manter Empresa</title>
-<link rel="stylesheet" type="text/css" href="/sceweb-v1/CSS/formato.css">
+<link rel="stylesheet" type="text/css" href="/Sceweb/css/Formato.css">
 <script type="text/javascript" language="javascript">
 	
 	function incluir() {
@@ -35,7 +35,7 @@
 		<hr>
 		<div id="formulario2">
 
-			<form name="formEmpresaIncluir" action="/sceweb-v1/ServletControle" method="post">
+			<form name="formEmpresaIncluir" action="/Sceweb/ServletControle" method="post">
 				<table id="tabcampos">
 					<tr>
 						<td><label> Nome:</label></td>
