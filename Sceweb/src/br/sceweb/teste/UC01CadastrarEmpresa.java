@@ -10,29 +10,61 @@ import br.sceweb.modelo.Empresa;
 import br.sceweb.modelo.EmpresaDAO;
 
 public class UC01CadastrarEmpresa {
-    static EmpresaDAO empresaDAO;
-    static Empresa empresa;
+	static EmpresaDAO empresaDAO;
+	static Empresa empresa;
+	
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		empresaDAO = new EmpresaDAO();
 		empresa = new Empresa();
-		empresa.setCnpj("12345678910");
-		empresa.setNomeEmpresa("O tal da Empresa");
-		empresa.setNomeFantasia("O tal");
-		empresa.setEndereco("rua rua rua ");
-		empresa.setTelefone("123456789");
+		empresa.setNomeEmpresa("empresa x");
+		empresa.setCnpj("89424232000180");
+		empresa.setNomeFantasia("empresa x");
+		empresa.setEndereco("rua taquari");
+		empresa.setTelefone("2222");
+	}
+	                                                                                                                                                                                                       
+	@Test
+	public void CT01UC01FBCadastra_com_sucesso() {
+		empresaDAO.excluir("89424232000180");
+		assertEquals(1,empresaDAO.adiciona(empresa));
+		
+	}
+	
+	@Test (expected = RuntimeException.class)
+	public void CT02UC01A2Cadastra_cnpj_ja_cadastrado(){
+		empresaDAO.adiciona(empresa);
+		assertEquals(0,empresaDAO.adiciona(empresa));
+	}
+
+	@Test
+	public void CT03UC01A3Cadastra_empresa_cnpj_invalido(){
+		Empresa empresa2 = new Empresa();
+		try{
+			empresa2.setCnpj("8942423200018");
+			fail("deveria disparar uma expection");
+		} catch (Exception e){
+			assertEquals("CNPJ inválido!", e.getMessage());
+		}
 	}
 	
 	@Test
-	public void CT01UC01CadastrarEmpresa_com_sucesso() {
-		assertEquals(1, empresaDAO.adiciona(empresa)); 
-		assertEquals(1, empresaDAO.excluir("12345678910"));
+	public void CT04UC01A4Cadastra_empresa_sem_nome(){
+		Empresa empresa3 = new Empresa();
+		try{
+			empresa3.setNomeEmpresa("");
+			fail("deveria disparar uma expection");
+		} catch (Exception e){
+			assertEquals("nome da empresa inválido!", e.getMessage());
+		}
 	}
-
+	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		empresaDAO.excluir("89424232000180");
 	}
 
-	
+
 
 }
